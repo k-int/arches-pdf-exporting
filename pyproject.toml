@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "arches_pdf_exporting"
 readme = "README.md"
 authors = [
-    "Knowledge Integration",
+    {name = "Knowledge Integration"},
 ]
 license = {text = "GNU AGPL3"}
 classifiers = [
