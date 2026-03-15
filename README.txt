@@ -1,7 +1,8 @@
-# Welcome to the Arches Project!
+# Arches PDF Exporting
 
-Arches is a new, open-source, web-based, geospatial information system for cultural heritage inventory and management. Arches is purpose-built for the international cultural heritage field, and it is designed to record all types of immovable heritage, including archaeological sites, buildings and other historic structures, landscapes, and heritage ensembles or districts.
+An Arches application to extend Arches search exports with an option for PDF exporting. 
+The PDF export option uses the HTML templating and export back-end functionality, but converts the resulting HTML file into a PDF as the final step. Resources can be exported in the standard format, where N resources are included in one file, or each of N resources can be exported into their own file. 
 
-Please see the [project page](http://archesproject.org/) for more information on the Arches project.
+In addition to offering a new search export, this application adds a button to the Arches report for exporting individual resources to PDF. This offers as an alternative to the "print" feature. 
 
-The Arches Installation Guide and Arches User Guide are available [here](http://archesproject.org/documentation/).
+Note that the export option and report button will only become visible if HTML templates are present within a project or application.
