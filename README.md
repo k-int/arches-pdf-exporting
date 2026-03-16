@@ -24,7 +24,6 @@ Note that the export option and report button will only become visible if HTML t
     ```
     # Add PDF writer to FORMATTERS
     RESOURCE_FORMATTERS["pdf"] = "arches_pdf_exporting.utils.data_management.resources.formats.pdf.PdfWriter"
-
     ```
 
 4. Update urls.py to include the arches-pdf-exporting urls
