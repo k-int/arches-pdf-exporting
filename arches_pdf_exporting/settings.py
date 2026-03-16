@@ -422,6 +422,9 @@ SHOW_LANGUAGE_SWITCH = len(LANGUAGES) > 1
 # See tests.views.search_tests.TestEsMappingModifier class for example
 # ES_MAPPING_MODIFIER_CLASSES = ["arches_pdf_exporting.search.es_mapping_modifier.EsMappingModifier"]
 
+# Add PDF writer to FORMATTERS
+RESOURCE_FORMATTERS["pdf"] = "arches_pdf_exporting.utils.data_management.resources.formats.pdf.PdfWriter"
+
 try:
     from .package_settings import *
 except ImportError:

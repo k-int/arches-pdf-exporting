@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
-from django.urls import include, path
+from django.urls import include, path, re_path
+
+from arches_pdf_exporting.views import search
 
 urlpatterns = [
-    # project-level urls
+    re_path(r"^search/export_results$", search.export_results, name="export_results"),
 ]
 
 # Ensure Arches core urls are superseded by project-level urls
