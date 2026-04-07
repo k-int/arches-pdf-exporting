@@ -33,12 +33,14 @@ Note that the export option and report button will only become visible if HTML t
     ]
     ```
 
-5. Start your project
+5. This application requires the pip package [weasyprint](https://pypi.org/project/weasyprint/). Run `pip install weasyprint` to install the package. There are also some additional installation steps which can be found on the weasyprint [documentation site](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation), e.g. for Ubuntu you also need to run `sudo apt install libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0`
+
+6. Start your project
     ```
     python manage.py runserver
     ```
 
-6. Install and build front-end dependencies:
+7. Install and build front-end dependencies:
     ```
     npm install
     npm run build_development (or npm run start)
