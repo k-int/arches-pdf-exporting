@@ -11,7 +11,7 @@ Note that the export option and report button will only become visible if HTML t
 
 1. If you don't already have an Arches project, you'll need to create one by following the instructions in the Arches [documentation](http://archesproject.org/documentation/).
 
-2. When your project is ready, add "arches_templating", "arches_for_science", and "pgtrigger" to INSTALLED_APPS **below** the name of your project:
+2. When your project is ready, add "arches_pdf_exporting" to INSTALLED_APPS **below** the name of your project:
     ```
     INSTALLED_APPS = (
         ...
@@ -29,7 +29,7 @@ Note that the export option and report button will only become visible if HTML t
 4. Update urls.py to include the arches-pdf-exporting urls
     ```
     urlpatterns = [
-        re_path(r"^search/export_results$", search.export_results, name="export_results"),
+        path("", include("arches_pdf_exporting.urls")),
     ]
     ```
 
