@@ -29,6 +29,9 @@ define([
         this.hasResourceTypeFilter = ko.observable(!!sharedStateObject.query()['resource-type-filter']);
         this.exportSystemValues = ko.observable(false);
 
+        // PDF
+        this.exportResPerPdf = ko.observable(false);
+
         this.query.subscribe(function(val) {
             if (val['resource-type-filter']) {
                 self.hasResourceTypeFilter(true);
@@ -52,6 +55,7 @@ define([
             urlparams.precision = self.precision();
             urlparams.total = self.total();
             urlparams.exportsystemvalues = self.exportSystemValues();
+            urlparams.exportresperpdf = self.exportResPerPdf();
             url = url + '?' + $.param(urlparams);
             return url;
         });
@@ -75,6 +79,7 @@ define([
             payload.email = this.emailInput();
             payload.exportName = this.exportName() || "Arches Export";
             payload.exportsystemvalues = this.exportSystemValues();
+            payload.exportresperpdf = this.exportResPerPdf();
             $.ajax({
                 type: "GET",
                 url: arches.urls.export_results,

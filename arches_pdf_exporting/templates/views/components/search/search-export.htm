@@ -66,6 +66,22 @@
                     <input type="radio" name="stat-w-label" data-bind="checked: format() === 'pdf'" value="false">
                     <span data-bind="text: 'pdf'"></span>
                 </label>
+                <!-- ko if: format() === 'pdf' -->
+                <div class="form-text form-normal"
+                    data-bind="
+                        component: { 
+                            name: 'views/components/simple-switch', 
+                            params: {
+                                value: exportResPerPdf, 
+                                config: { 
+                                    label: 'Export one resource per PDF',
+                                    subtitle: 'Toggle to export each resource as a new PDF file.\nWarning, this may impact performance and/or storage depending on numbers.',
+                                }
+                            }
+                        }
+                    "
+                ></div>
+                <!-- /ko -->
                 <!-- /ko -->
                 <label role="radio" tabindex="0" class="form-radio form-normal form-text" 
                     data-bind="

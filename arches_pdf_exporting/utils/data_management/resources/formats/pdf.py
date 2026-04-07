@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 class PdfWriter(HtmlWriter):
     def __init__(self, **kwargs):
         super(HtmlWriter, self).__init__(**kwargs)
+        self.export_resource_per_pdf = kwargs.get("export_resource_per_pdf")
 
     def write_resources(self, graph_id=None, resourceinstanceids=None, **kwargs):
         """
@@ -57,19 +58,29 @@ class PdfWriter(HtmlWriter):
         for gid in resource_object_list.keys():
             template = self.load_html_template(gid)
 
-            content = template.render({"resources": resource_object_list[gid]})
+            if not self.export_resource_per_pdf:
+                content = template.render({"resources": resource_object_list[gid]})
+                file_name = f"{str(GraphModel.objects.get(pk=gid))}.pdf"
+                files.append(self.write_pdf(content=content, file_name=file_name))    
 
-            # Rather than StringIO we use BytesIO here
-            dest = BytesIO()
-            # Convert the rendered HTML to a PDF
-            pdf = weasyprint.HTML(string=content).write_pdf()
-            dest.write(pdf)
-
-            files.append(
-                {
-                    "name": f"{str(GraphModel.objects.get(pk=gid))}.pdf",
-                    "outputfile": dest,
-                }
-            )
+            else:
+                for res in resource_object_list[gid]:
+                    content = template.render({"resources": [res]})
+                    file_name = f"{str(GraphModel.objects.get(pk=gid))}_{res['resourceinstanceid']}.pdf"
+                    files.append(self.write_pdf(content=content, file_name=file_name))
 
         return files
+
+    def write_pdf(self, content, file_name):
+        # Rather than StringIO we use BytesIO here
+        dest = BytesIO()
+        # Convert the rendered HTML to a PDF
+        pdf = weasyprint.HTML(string=content).write_pdf()
+        dest.write(pdf)
+
+        file = {
+                "name": file_name,
+                "outputfile": dest,
+            }
+
+        return file

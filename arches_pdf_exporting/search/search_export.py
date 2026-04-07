@@ -3,6 +3,7 @@ import logging
 from django.urls import get_script_prefix, resolve, reverse
 from django.utils.translation import gettext as _
 
+from arches.app.utils.string_utils import get_str_kwarg_as_bool
 from arches.app.models import models
 from arches.app.models.system_settings import settings
 from arches.app.utils.betterJSONSerializer import JSONDeserializer
@@ -16,6 +17,9 @@ from arches.app.search.search_export import SearchResultsExporter as ArchesSearc
 class AppSearchResultsExporter(ArchesSearchResultsExporter):
     def __init__(self, search_request=None):
         super().__init__(search_request)
+        self.export_resource_per_pdf = get_str_kwarg_as_bool(
+            "exportresperpdf", search_request.GET
+        )
     
     def pdf_export(self, format, report_link):
         super().export(format, report_link)
@@ -90,6 +94,6 @@ class AppSearchResultsExporter(ArchesSearchResultsExporter):
         resourceinstanceids = [
             instance["resourceid"] for instance in instances if "resourceid" in instance
         ]
-        html_exporter = ResourceExporter(format="pdf")
+        html_exporter = ResourceExporter(format="pdf", export_resource_per_pdf=self.export_resource_per_pdf)
         dest = html_exporter.export(resourceinstanceids=resourceinstanceids)
         return dest
