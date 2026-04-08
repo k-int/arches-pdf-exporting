@@ -4,9 +4,17 @@ from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path, re_path
 
 from arches_pdf_exporting.views import search
+from arches_pdf_exporting.views.print_report import PrintReportView
+
+uuid_regex = settings.UUID_REGEX
 
 urlpatterns = [
     re_path(r"^search/export_results$", search.export_results, name="export_results"),
+    re_path(
+        r"^report/(?P<resourceid>%s)/print$" % uuid_regex,
+        PrintReportView.as_view(),
+        name="print_report",
+    ),
 ]
 
 # Ensure Arches core urls are superseded by project-level urls
