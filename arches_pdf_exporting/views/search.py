@@ -45,7 +45,7 @@ def export_results(request):
             if celery_worker_running is True:
                 request_values = dict(request.GET)
                 request_values["path"] = request.get_full_path()
-                print("in search ", request_values, format, report_link)
+
                 result = tasks.export_search_results.apply_async(
                     (request.user.id, request_values, format, report_link),
                     link=tasks.update_user_task_record.s(),
