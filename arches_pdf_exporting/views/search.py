@@ -5,7 +5,6 @@ from arches.app.models.system_settings import settings
 from arches.app.utils.response import JSONResponse, JSONErrorResponse
 import arches.app.utils.zip as zip_utils
 import arches.app.utils.task_management as task_management
-import arches.app.tasks as tasks
 
 from tempfile import NamedTemporaryFile
 from io import StringIO
@@ -14,6 +13,7 @@ import logging
 
 from arches_pdf_exporting.search.search_export import AppSearchResultsExporter
 from arches.app.search.search_export import SearchResultsExporter
+import arches_pdf_exporting.tasks as tasks
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +45,7 @@ def export_results(request):
             if celery_worker_running is True:
                 request_values = dict(request.GET)
                 request_values["path"] = request.get_full_path()
+                print("in search ", request_values, format, report_link)
                 result = tasks.export_search_results.apply_async(
                     (request.user.id, request_values, format, report_link),
                     link=tasks.update_user_task_record.s(),
