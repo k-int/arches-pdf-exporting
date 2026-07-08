@@ -16,6 +16,7 @@ from arches.app.utils.data_management.resources.formats.htmlfile import HtmlWrit
 
 logger = logging.getLogger(__name__)
 
+
 class PdfWriter(HtmlWriter):
     def __init__(self, **kwargs):
         super(HtmlWriter, self).__init__(**kwargs)
@@ -61,7 +62,7 @@ class PdfWriter(HtmlWriter):
             if not self.export_resource_per_pdf:
                 content = template.render({"resources": resource_object_list[gid]})
                 file_name = f"{str(GraphModel.objects.get(pk=gid))}.pdf"
-                files.append(self.write_pdf(content=content, file_name=file_name))    
+                files.append(self.write_pdf(content=content, file_name=file_name))
 
             else:
                 for res in resource_object_list[gid]:
@@ -79,8 +80,8 @@ class PdfWriter(HtmlWriter):
         dest.write(pdf)
 
         file = {
-                "name": file_name,
-                "outputfile": dest,
-            }
+            "name": file_name,
+            "outputfile": dest,
+        }
 
         return file

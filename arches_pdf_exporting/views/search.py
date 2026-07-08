@@ -17,7 +17,8 @@ from arches.app.search.search_export import SearchResultsExporter
 
 logger = logging.getLogger(__name__)
 
-# Copied from core Arches 7.6.x and modified to include pdf typing and routing to new pdf exporter 
+
+# Copied from core Arches 7.6.x and modified to include pdf typing and routing to new pdf exporter
 @group_required("Resource Exporter")
 def export_results(request):
     total = int(request.GET.get("total", 0))
