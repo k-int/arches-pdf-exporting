@@ -20,7 +20,7 @@ except ImportError:
 # to pick up the PDF export format.
 @shared_task(bind=True)
 def export_search_results(self, userid, request_values, format, report_link):
-    from arches_pdf_exporting.search.search_export import AppSearchResultsExporter 
+    from arches_pdf_exporting.search.search_export import AppSearchResultsExporter
     from arches.app.search.search_export import SearchResultsExporter
     from arches.app.models.system_settings import settings
 
@@ -66,7 +66,7 @@ def export_search_results(self, userid, request_values, format, report_link):
             files, export_info = exporter.pdf_export(format, report_link)
         else:
             exporter = SearchResultsExporter(search_request=new_request)
-            files, export_info = exporter.export(format, report_link)            
+            files, export_info = exporter.export(format, report_link)
         exportid = exporter.write_export_zipfile(files, export_info, export_name)
 
     search_history_obj = models.SearchExportHistory.objects.get(pk=exportid)
@@ -105,4 +105,3 @@ def export_search_results(self, userid, request_values, format, report_link):
         "notiftype_name": "Search Export Download Ready",
         "context": context,
     }
-
