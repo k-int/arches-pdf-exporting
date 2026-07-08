@@ -55,7 +55,6 @@ class PdfWriter(HtmlWriter):
         uses the provided resource object list to generate a set of html file objects required by the Arches ResourceExporter.
 
         """
-        print("generate_pdf_file")
         files = []
         for gid in resource_object_list.keys():
             template = self.load_html_template(gid)
@@ -74,7 +73,6 @@ class PdfWriter(HtmlWriter):
         return files
 
     def write_pdf(self, content, file_name):
-        print("write_pdf")
         # Rather than StringIO we use BytesIO here
         dest = BytesIO()
         # Convert the rendered HTML to a PDF

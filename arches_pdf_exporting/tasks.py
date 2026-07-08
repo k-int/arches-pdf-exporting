@@ -20,16 +20,12 @@ except ImportError:
 # to pick up the PDF export format.
 @shared_task(bind=True)
 def export_search_results(self, userid, request_values, format, report_link):
-    print("HERE?")
     from arches_pdf_exporting.search.search_export import AppSearchResultsExporter 
     from arches.app.search.search_export import SearchResultsExporter
     from arches.app.models.system_settings import settings
 
     logger = logging.getLogger(__name__)
     settings.update_from_db()
-
-    print("APP VERSION HEREEEEEEEEE")
-    print(userid, request_values, format, report_link)
 
     create_user_task_record(self.request.id, self.name, userid)
     _user = User.objects.get(id=userid)
@@ -47,7 +43,6 @@ def export_search_results(self, userid, request_values, format, report_link):
     for k, v in request_values.items():
         new_request.GET.__setitem__(k, v[0])
     new_request.path = request_values["path"]
-    print(format)
     if format == "tilexl":
         exporter = SearchResultsExporter(search_request=new_request)
         export_files, export_info = exporter.export(format, report_link)
@@ -72,7 +67,6 @@ def export_search_results(self, userid, request_values, format, report_link):
         else:
             exporter = SearchResultsExporter(search_request=new_request)
             files, export_info = exporter.export(format, report_link)            
-        print(files, export_info, exporter, report_link)
         exportid = exporter.write_export_zipfile(files, export_info, export_name)
 
     search_history_obj = models.SearchExportHistory.objects.get(pk=exportid)
