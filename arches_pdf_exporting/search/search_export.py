@@ -11,7 +11,9 @@ from arches.app.utils.data_management.resources.exporter import ResourceExporter
 
 logger = logging.getLogger(__name__)
 
-from arches.app.search.search_export import SearchResultsExporter as ArchesSearchResultsExporter
+from arches.app.search.search_export import (
+    SearchResultsExporter as ArchesSearchResultsExporter,
+)
 
 
 class AppSearchResultsExporter(ArchesSearchResultsExporter):
@@ -20,7 +22,7 @@ class AppSearchResultsExporter(ArchesSearchResultsExporter):
         self.export_resource_per_pdf = get_str_kwarg_as_bool(
             "exportresperpdf", search_request.GET
         )
-    
+
     def pdf_export(self, format, report_link):
         super().export(format, report_link)
 
@@ -89,11 +91,13 @@ class AppSearchResultsExporter(ArchesSearchResultsExporter):
 
         return ret, search_export_info
 
-    # copied from the core Arches class, but modified for format=pdf rather than html 
+    # copied from the core Arches class, but modified for format=pdf rather than html
     def to_html(self, instances, name, graph_id):
         resourceinstanceids = [
             instance["resourceid"] for instance in instances if "resourceid" in instance
         ]
-        html_exporter = ResourceExporter(format="pdf", export_resource_per_pdf=self.export_resource_per_pdf)
+        html_exporter = ResourceExporter(
+            format="pdf", export_resource_per_pdf=self.export_resource_per_pdf
+        )
         dest = html_exporter.export(resourceinstanceids=resourceinstanceids)
         return dest
