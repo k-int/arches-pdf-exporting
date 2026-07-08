@@ -66,10 +66,11 @@ def export_search_results(self, userid, request_values, format, report_link):
             raise
         os.unlink(tmp.name)
     else:
-        exporter = AppSearchResultsExporter(search_request=new_request)
         if format == "pdf":
+            exporter = AppSearchResultsExporter(search_request=new_request)
             files, export_info = exporter.pdf_export(format, report_link)
         else:
+            exporter = SearchResultsExporter(search_request=new_request)
             files, export_info = exporter.export(format, report_link)            
         print(files, export_info, exporter, report_link)
         exportid = exporter.write_export_zipfile(files, export_info, export_name)
