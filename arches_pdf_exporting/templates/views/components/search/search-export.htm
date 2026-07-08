@@ -200,7 +200,7 @@
         </div>
 
         <!-- Options if Celery is running -->
-        <!-- ko if: ((total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} && celeryRunning() === "True") || (format() === "html" && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() === "True")) && ("{{app_settings.RESTRICT_CELERY_EXPORT_FOR_ANONYMOUS_USER}}" === "False" || "{{app_settings.RESTRICT_CELERY_EXPORT_FOR_ANONYMOUS_USER}}" === "True" && userName() !== "anonymous")-->
+        <!-- ko if: ((total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} && celeryRunning() === "True") || ((format() === "html" || format() === "pdf") && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() === "True")) && ("{{app_settings.RESTRICT_CELERY_EXPORT_FOR_ANONYMOUS_USER}}" === "False" || "{{app_settings.RESTRICT_CELERY_EXPORT_FOR_ANONYMOUS_USER}}" === "True" && userName() !== "anonymous")-->
         <div>
             <div class="instruction">
                 <div class="search-export-instruction-h2 h2">
@@ -247,7 +247,7 @@
     </div>
 
     <!-- Celery Warning -->
-    <!-- ko let: {show_celery_warning: ((total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}}) && (celeryRunning() !== 'True') || (format() === 'html' && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() !== 'True'))} -->
+    <!-- ko let: {show_celery_warning: ((total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}}) && (celeryRunning() !== 'True') || ((format() === 'html' || format() === 'pdf') && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() !== 'True'))} -->
     <div 
         id="export-warning"
         data-bind="
@@ -261,10 +261,10 @@
         <button class="btn btn-lg btn-primary btn-active-primary"
             type="button"
             data-bind="
-                css: {disabled: (total() === 0) || (total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} && celeryRunning() !== 'True') || (format() === 'html' && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() !== 'True') },
-                click: function(){if (format() === 'html') { executeExport( {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} ) } else { executeExport( {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} ) }},
+                css: {disabled: (total() === 0) || (total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} && celeryRunning() !== 'True') || ((format() === 'html' || format() === 'pdf') && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() !== 'True') },
+                click: function(){if (format() === 'html' || format() === 'pdf') { executeExport( {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} ) } else { executeExport( {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} ) }},
                 attr: {
-                    'aria-disabled': (total() === 0) || (total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} && celeryRunning() !== 'True'),
+                    'aria-disabled': (total() === 0) || (total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD}} && celeryRunning() !== 'True') || ((format() === 'html' || format() === 'pdf') && total() > {{app_settings.SEARCH_EXPORT_IMMEDIATE_DOWNLOAD_THRESHOLD_HTML_FORMAT}} && celeryRunning() !== 'True'),
                     'aria-describedby': show_celery_warning ? 'export-warning':'',
                     'aria-busy': downloadPending(),
                 },
