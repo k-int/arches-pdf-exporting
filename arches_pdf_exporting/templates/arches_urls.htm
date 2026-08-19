@@ -1,0 +1,14 @@
+{% extends "arches_urls.htm" %}
+
+{% load static %}
+{% load l10n %}
+{% load i18n %}
+
+{% block arches_urls %}
+{{ block.super }}
+<div class="arches-urls"
+    export_results="{% url 'export_results' %}"
+    >
+</div>
+
+{% endblock arches_urls %}
