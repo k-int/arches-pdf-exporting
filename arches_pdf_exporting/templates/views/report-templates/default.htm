@@ -4,6 +4,7 @@
 {% load webpack_static from webpack_loader %}
 
 {% block footer %}
+{{ block.super }}
 
 <div class="report-footer-actions" style="background: #f8f8f8; display: flex; justify-content: space-between; padding: 0 20px;">
     <button type="button" class="btn btn-primary btn-sm" data-bind="click: exportSinglePdf">
