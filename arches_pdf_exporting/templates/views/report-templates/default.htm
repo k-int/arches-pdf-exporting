@@ -6,7 +6,7 @@
 {% block footer %}
 
 <div class="report-footer-actions" style="margin-top: 1rem; text-align: right;">
-    <button type="button" class="btn btn-primary btn-sm" data-bind="click: function() {exportSinglePdf(); }">
+    <button type="button" class="btn btn-primary btn-sm" data-bind="click: exportSinglePdf">
         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
         {% trans "Export PDF" %}
     </button>
