@@ -45,3 +45,26 @@ Note that the export option and report button will only become visible if HTML t
     npm install
     npm run build_development (or npm run start)
     ```
+
+## Core Arches modification
+
+Since this Arches extension adds functionality that cannot be directly added by natively extending core Arches, certain files have been copied from core Arches (7.6.x). These files, and their reasonings, are:
+
+- media/js/views/components/search/search-export.js
+- templates/views/components/search/search-export.htm
+- search/search_export.py
+- views/search.py
+To implement the PDF search export option, and the routing logic when the PDF option is selected.
+
+- urls.py
+- templates/arches_urls.htm
+Our overwritten search export URL is defined here, both for the backend endpoint and the referenced arches.url used in the report.js function.
+
+- tasks.py
+Overwrites the `export_search_results` celery task to incorporate the PDF exporting task logic.
+
+- media/js/viewmodels/report.js
+Overwrites and extends the default report javascript to include our footer button function.
+
+- templates/views/components/report-templates.htm
+Not necessarily a file overwritten, but this extends the footer of all default report templates to include the export PDF button. Note: this does not appear for Arches for HERs reports.  
