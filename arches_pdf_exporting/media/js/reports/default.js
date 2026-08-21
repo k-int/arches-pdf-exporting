@@ -1,17 +1,14 @@
 define([
     'knockout', 
     'viewmodels/report', 
-    'templates/views/report-templates/default.htm',
-], function(ko, ReportViewModel, defaultTemplate) {
-    const viewModel = function(params) {
-        params.configKeys = [];
-         
-        
-        ReportViewModel.apply(this, [params]);
-    };
-
+    'templates/views/report-templates/default.htm'
+], function(ko, ReportViewModel, defaultReportTemplate) {
     return ko.components.register('default-report', {
-        viewModel: viewModel,
-        template: defaultTemplate
+        viewModel: function(params) {
+            params.configKeys = [];
+
+            ReportViewModel.apply(this, [params]);
+        },
+        template: defaultReportTemplate
     });
 });
