@@ -62,9 +62,9 @@ define([
         this.exportSinglePdf = function () {
             const resourceId = self.report.report_json.resourceinstanceid
 
-            this.url = ko.computed(function() {
-                var url = arches.urls.export_results;
-                var urlparams = {
+            this.url = function() {
+                let url = arches.urls.export_results;
+                let urlparams = {
                     format: "pdf",
                     reportlink: false,
                     precision: 6,
@@ -84,7 +84,7 @@ define([
                 }
                 url = url + '?' + $.param(urlparams);
                 return url;
-            });
+            };
 
             window.open(this.url());
         };
