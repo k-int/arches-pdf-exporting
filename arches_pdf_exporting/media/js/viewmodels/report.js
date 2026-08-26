@@ -83,7 +83,6 @@ define([
                     }])
                 }
                 url = url + '?' + $.param(urlparams);
-                console.log(urlparams)
                 return url;
             });
 
